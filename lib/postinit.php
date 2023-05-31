@@ -32,7 +32,7 @@ if ($request->isPost && $user->role == 'author') {
     $comment->load($request->post());
 
     if ($comment->validate()) {
-        var_dump($comment);
+        // var_dump($comment);
         // Чтобы не сохранять
         if ($comment->save()) {
             $response->redirect('post.php', ['id' => $comment->id_post]);

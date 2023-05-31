@@ -9,7 +9,7 @@ class Response
 
         if (isset($_GET['token']) && $this->user->isGuest) {
             // var_dump($this->user);
-            header("Location: http://localhost/info-system/index.php");
+            header("Location: http://localhost/site/index.php");
             exit();
         }
     }
@@ -38,6 +38,9 @@ class Response
         $url = $this->getLink($url, $urlMas);
         $host = $this->user->request->host();
 
-        return header("Location: http://$host/info-system/$url");
+        header("Location: http://$host/site/$url");
+        exit();
+
+        return true;
     }
 }

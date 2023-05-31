@@ -49,7 +49,7 @@ require_once "lib/$fileName" . "init.php";
 
 								
 								<div class="form-group">
-									<textarea cols="30" rows="10" class="form-control <?= $post->validContent ? 'is-invalid' : '';?>" placeholder="Текст" name="content"><?= $post->content ? $post->br2rn($post->content) : '';?></textarea> 
+									<textarea cols="30" rows="10" class="form-control <?= $post->validContent ? 'is-invalid' : '';?>" placeholder="Текст" name="content"><?=$post->content ? $post->br2rn($post->content) : '';?></textarea> 
 									<div class="invalid-feedback">
 										<?= $post->validContent;?>
 									</div>
@@ -64,7 +64,6 @@ require_once "lib/$fileName" . "init.php";
 							</form>
 
 						</div>
-
 
 					</div>
 				</div>

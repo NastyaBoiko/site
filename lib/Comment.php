@@ -15,10 +15,12 @@ class Comment extends Data
     public $validComment;
 
     public $post;
+    public $response;
 
-    public function __construct($post) {
+    public function __construct($post, $response) {
         // Юзер внутри
         $this->post = $post;
+        $this->response = $response;
         if (isset($_GET['id'])) {
             $this->id_post = $_GET['id'];
         }
@@ -94,7 +96,7 @@ class Comment extends Data
             $user->identity($commentMas['id_user']);
             $post = new Post($user);
             $post->findOne($commentMas['id_post']);
-            $comment = new static($post);
+            $comment = new static($post, $this->response);
             $comment->findOneComment($commentMas['id']);
             array_push($commentsMas, $comment);
         }
@@ -107,6 +109,64 @@ class Comment extends Data
 
     public function delete($id) {
         return $this->post->user->mysql->query("DELETE FROM `comment` WHERE `id` = $id");
+    }
+
+    public function createCommentList($user, $id_parent = NULL) {
+        ?>
+        <?php 
+            $commentInfo = $this->commentList($id_parent);
+            // echo "<pre>";
+            // var_dump($user);
+            // var_dump($commentInfo); die;
+            // if (!empty($commentInfo)):
+
+                foreach ($commentInfo as $comment):
+                    // var_dump($comment);
+                    echo '<div class="comment-body mt-3">';
+
+                    if (is_null($comment->id_parent)):
+                        echo "<li class='comment'>";
+                    endif;
+
+                    if (!empty($comment->post->user->avatar)):?>
+                        <div class="vcard bio">
+                            <img src="<?=$comment->post->user->avatar?>" alt="avatar">
+                        </div>
+                    <?php endif;?>
+
+                    <div class="comment-body">
+                        <div class="d-flex justify-content-between">
+                            <h3><?=$comment->post->user->login?></h3>
+                            <?php if ($comment->id_user == $user->id || $user->isAdmin):?>
+                                <a href="<?= $this->response->getLink('post.php', ['id' => $comment->id_post, 'deleteCom' => $comment->id]);?>" class="text-danger" style="font-size: 1.8em;" title="Удалить">🗑</a>
+                            <?php endif;?>
+                        </div>
+                        <div class="meta"><?=$comment->post->format($comment->create_at)?></div>
+                        <p>
+                            <?=$comment->comment;?>
+                        </p>
+                        <?php if ($user->role == 'author'):?>
+                            <p><a href="<?=$this->response->getLink('comment-action.php', ['id_post' => $comment->id_post, 'id_parent' => $comment->id]);?>" class="reply">Ответить</a></p>
+                        <?php endif;?>
+
+                    </div>
+
+                    <?php 
+                        // $answerComment = $comment->commentList($comment->id);
+                        $this->createCommentList($user, $comment->id);
+                    ?>
+
+
+                    <?php
+                    if (is_null($comment->id_parent)):
+                        echo "</li>";
+                    endif;
+
+                    echo '</div>';
+
+
+                endforeach;
+
     }
 }
 

@@ -19,9 +19,9 @@ $header = new Header();
 
 $pagination = new Pagination($user, $post, $response);
 
-$comment = new Comment($post);
+$comment = new Comment($post, $response);
 
-$parentComment = new Comment($post);
+$parentComment = new Comment($post, $response);
 
 $admin = new Admin($request, $mysql);
 
