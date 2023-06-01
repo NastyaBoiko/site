@@ -25,6 +25,9 @@ $parentComment = new Comment($post, $response);
 
 $admin = new Admin($request, $mysql);
 
+// var_dump($user);
+
+
 // echo "<pre>";
 // var_dump($admin->getUsersInfo()); die;
 

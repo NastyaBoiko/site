@@ -46,9 +46,12 @@ class User extends Data
         $this->mysql = $mysql;
         if ($this->token = $this->request->getToken()) {
             $this->identity();
+            // Автоматический выход из системы заблокированного пользователя
+            $this->autoBlock();
             // var_dump($this);
         }
     }
+
 
     public function load($mas) {
         // foreach ($mas as $key => $val) {
@@ -191,6 +194,14 @@ class User extends Data
             return true;
         }
         return false;
+    }
+
+    public function autoBlock() {
+        if ($this->is_block == 1) {
+            $this->logout();
+            header("Location: http://localhost/site/index.php");
+            exit();
+        }
     }
 
     public function logout() {

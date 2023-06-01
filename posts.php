@@ -70,7 +70,11 @@ require_once "lib/$fileName" . "init.php";
 												<?php 
 												if ($post->id_user == $user->id || $user->isAdmin):?> 
 													<div>
-														<a href="<?=$response->getLink('post-action.php', ['id' => $post->id]);?>" class="text-warning" style="font-size: 1.8em;" title="Редактировать">🖍</a>
+														<?php
+														if ($post->id_user == $user->id):?> 
+															<a href="<?=$response->getLink('post-action.php', ['id' => $post->id]);?>" class="text-warning" style="font-size: 1.8em;" title="Редактировать">🖍</a>
+														<?php endif;?>
+
 														<a href="<?=$response->getLink('post.php', ['id' => $post->id, 'deletePost' => '1']);?>" class="text-danger" style="font-size: 1.8em;" title="Удалить">🗑</a>
 													</div>
 												<?php endif;?>
