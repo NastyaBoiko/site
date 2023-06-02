@@ -45,6 +45,10 @@ class Admin extends User
         return $this->mysql->query("UPDATE `user` SET `block_time` = NULL, `is_block` = 0 WHERE `id`=$userId");
     }
 
+    public function blockforever($userId) {
+        return $this->mysql->query("UPDATE `user` SET `is_block` = 1 WHERE `id`=$userId");
+    }
+
     public function autoUnblockAdmin($user) {
         if (!is_null($user->block_time)) {
             if (new DateTime($user->block_time) < new DateTime()) {

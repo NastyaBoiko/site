@@ -16,6 +16,7 @@ if ($request->isPost) {
             }
             if ($user->login()) {
                 header("Location: " . $response->getLink('index.php', []));
+                exit();
             }
         }
     }

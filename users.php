@@ -47,9 +47,12 @@ require_once "lib/$fileName" . "init.php";
 											
 											<?php
 												$numberUser = 1;
-												// var_dump($user);
+												// var_dump();
 												foreach ($admin->getUsersInfo() as $userData):
-													// var_dump($userData); die;
+													if ($user->id == $userData->id) {
+														continue;
+													}
+													// var_dump($userData->id); die;
 											?>
 											<tr>
 												<th scope="row"><?=$numberUser?></th>
@@ -59,25 +62,29 @@ require_once "lib/$fileName" . "init.php";
 												<td><?=$userData->email?></td>
 												<td>
 													<?php 
-														if (empty($userData->block_time)) {
+														if (empty($userData->is_block)) {
 													
-													?>
-														<a href="<?=$response->getLink('temp-block.php', ['user_id' => $userData->id]);?>" class="btn btn-outline-warning px-4">⏳ Block</a>
-													<?php 
-														} else {echo $user->format($userData->block_time);} 
+														echo "<a href=" . $response->getLink('temp-block.php', ['user_id' => $userData->id]) . " class='btn btn-outline-warning px-4'>⏳ Block</a>";
+
+														} else {
+															if ($userData->block_time) {
+																echo $user->format($userData->block_time);
+															} else {
+																echo 'Заблокирован навсегда';
+															}
+														} 
 													?>
 												</td>
 												<td>
 													<?php 
-														if (empty($userData->block_time)) {
+														if (empty($userData->is_block)) {
+															echo "<a href=" . $response->getLink('users.php', ['user_id' => $userData->id, 'blockforever' => '1']) . " class='btn btn-outline-danger px-4'>📌 Block</a>";
 													
-													?>
-													<a href="#" class="btn btn-outline-danger px-4">📌 Block</a>
-													<?php 
 														} else { 
-													?>
-													<a href="<?=$response->getLink('users.php', ['user_id' => $userData->id, 'unblock' => '1']);?>" class="btn btn-outline-danger px-4">Разблокировать</a>
-													<?php 
+															if ($userData->block_time) {
+																echo "<a href=" . $response->getLink('users.php', ['user_id' => $userData->id, 'unblock' => '1']) . " class='btn btn-outline-danger px-4'>Разблокировать</a>";
+															} 
+													
 														}
 													?>
 												</td>
