@@ -7,8 +7,7 @@ if ($request->isPost) {
         // $user->login();
         // var_dump($user);
         if ($user->login()) {
-            header("Location: " . $response->getLink('index.php', []));
-            exit();
+            $response->redirect('index.php', []);
         }
     }
 } 

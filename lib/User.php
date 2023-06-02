@@ -59,7 +59,7 @@ class User extends Data
         //         $this->$key = $val;
         //     }    
         // }
-        $this->isGuest = false;
+        // $this->isGuest = false;
 
         parent::load($mas);
 
@@ -127,14 +127,6 @@ class User extends Data
 
         return $this->validateData();
 
-        // foreach (get_object_vars($this) as $key => $val) {
-        //     if (str_contains($key, 'valid') && !empty($val)) {
-        //         return false;
-        //         // echo "$key => $val <br>";
-        //     }
-        // }
-
-        // return true;
     }
 
     public function login() {
@@ -147,7 +139,10 @@ class User extends Data
             return false;
         } else {
             $this->load($dataMas[0]);
-            // var_dump($this);
+
+            $this->isGuest = false;
+            // var_dump($this); die;
+
 
             // Проверка на заблокированного пользователя и его разблокировка если блокировка прошла
 
@@ -190,6 +185,7 @@ class User extends Data
             $dataMas = $this->mysql->querySelect("SELECT * FROM user WHERE `token` = '$this->token'");
         }
         if (!empty($dataMas)) {
+            $this->isGuest = false;
             $this->load($dataMas[0]);
             return true;
         }
@@ -199,7 +195,7 @@ class User extends Data
     public function autoBlock() {
         if ($this->is_block == 1) {
             $this->logout();
-            header("Location: http://localhost/site/index.php");
+            header("Location: http://localhost/site/login.php");
             exit();
         }
     }
@@ -239,10 +235,15 @@ class User extends Data
     }
 
     public function autoUnblock() {
-        if (new DateTime($this->block_time) < new DateTime()) {
-            $this->unblock($this->id);
+        if (!is_null($this->block_time)) {
+            if (new DateTime($this->block_time) < new DateTime()) {
+                $this->unblock($this->id);
+            } else {
+                $this->validBlock = "Пользователь заблокирован до $this->block_time";
+                return false;
+            }
         } else {
-            $this->validBlock = "Пользователь заблокирован до $this->block_time";
+            $this->validBlock = "Пользователь заблокирован навсегда";
             return false;
         }
         return true;
