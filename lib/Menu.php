@@ -22,7 +22,7 @@ class Menu
             
             $avatar = $this->user->avatar ?? $this->defaultUserProfile;
 
-            $res .= '<img src="' . $avatar . '" class="img-fluid rounded-circle" width="100" height="100"> <br><br>';
+            $res .= '<img src="' . $avatar . '" class="img-fluid rounded-circle" style="width: 100px; height: 100px"> <br><br>';
         } 
 
             foreach($this->mas as $key => $val) {
