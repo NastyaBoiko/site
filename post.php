@@ -2,6 +2,8 @@
 $fileName = basename(__FILE__, '.php');
 require_once "lib/$fileName" . "init.php";
 // var_dump($post->picture_name);
+// var_dump($post);
+// var_dump($defaultUserProfile); die;
 ?>
 
 <!DOCTYPE html>
@@ -34,16 +36,25 @@ require_once "lib/$fileName" . "init.php";
 								<h1 class="mb-3"><?=$post->title?></h1>
 								<div class="meta-wrap">
 									<p class="meta">
-										<!-- <img src='images/person_1.jpg' /> -->
-										<span class="text text-3"><?=$post->authorLogin?></span>
-										<span><i class="icon-calendar mr-2"></i><?=$post->format($post->create_at)?></span>
-										<span><i class="icon-comment2 mr-2"></i><?=$post->numComments?> Comment</span>
+										<?php
+										// Выведение аватерки у пользователя - автора поста
+										$avatar = $post->authorAvatar ?? $defaultUserProfile;
+										?>
+										<img src='<?=$avatar?>' class="img-fluid rounded-circle" width="50" height="50" />
+
+										<span class="text text-3 ml-3"><?=$post->authorLogin?></span>
+										<span><i class="icon-calendar mr-2 ml-3"></i><?=$post->format($post->create_at)?></span>
+										<span><i class="icon-comment2 mr-2 ml-3"></i><?=$post->numComments?> Comment</span>
 									</p>
 								</div>
 								<?=$post->content?>
+
+								<?php if ($post->picture_name): ?>
 								<p>
 									<img src="<?=$post->picture_name?>" alt="" class="img-fluid">
 								</p>
+								<?php endif; ?>
+
 								<?php
 									if ($post->id_user == $user->id || $user->isAdmin): 
 								?>
@@ -61,7 +72,7 @@ require_once "lib/$fileName" . "init.php";
 							<div class="comments pt-5 mt-5">
 								<h3 class="mb-5 font-weight-bold"><?=$post->numComments?> комментариев</h3>
 								<ul class="comment-list">
-									<?=$comment->createCommentList($user);?>
+									<?=$comment->createCommentList($user, $defaultUserProfile);?>
 									
 								</ul>
 								<!-- END comment-list -->

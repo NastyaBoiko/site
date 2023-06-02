@@ -13,7 +13,7 @@ $post = new Post($user);
 
 $response = new Response($user);
 
-$menu = new Menu($config, $response, $user);
+$menu = new Menu($config, $response, $user, $defaultUserProfile);
 
 $header = new Header();
 

@@ -111,7 +111,7 @@ class Comment extends Data
         return $this->post->user->mysql->query("DELETE FROM `comment` WHERE `id` = $id");
     }
 
-    public function createCommentList($user, $id_parent = NULL) {
+    public function createCommentList($user, $defaultUserProfile, $id_parent = NULL) {
         ?>
         <?php 
             $commentInfo = $this->commentList($id_parent);
@@ -128,11 +128,15 @@ class Comment extends Data
                         echo "<li class='comment'>";
                     endif;
 
-                    if (!empty($comment->post->user->avatar)):?>
-                        <div class="vcard bio">
-                            <img src="<?=$comment->post->user->avatar?>" alt="avatar">
-                        </div>
-                    <?php endif;?>
+                    // Выведение аватарки
+
+                    $avatar = $comment->post->user->avatar ?? $defaultUserProfile;?>
+
+
+                    <div class="vcard bio">
+                        <img src="<?=$avatar?>" alt="avatar">
+                    </div>
+
 
                     <div class="comment-body">
                         <div class="d-flex justify-content-between">
@@ -153,7 +157,7 @@ class Comment extends Data
 
                     <?php 
                         // $answerComment = $comment->commentList($comment->id);
-                        $this->createCommentList($user, $comment->id);
+                        $this->createCommentList($user, $defaultUserProfile, $comment->id);
                     ?>
 
 

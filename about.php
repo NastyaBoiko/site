@@ -21,12 +21,14 @@ require_once "lib/$fileName" . "init.php";
       <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
         <div class="container-fluid px-0">
           <div class="row d-flex mt-5">
-            <div class="col-md-6 d-flex align-items-center">
+            <div class="col-md-7 d-flex align-items-center">
               <div class="text px-4 pt-5 pt-md-0 px-md-4 pr-md-5 ftco-animate">
-                <h2 class="mb-4">I'm <span>Andrea Moore</span> a Scotish Blogger &amp; Explorer</h2>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a
-                  paradisematic country, in which roasted parts of sentences fly into your mouth. It is a paradisematic
-                  country, in which roasted parts of sentences fly into your mouth.</p>
+                <h2 class="mb-4">МЫ<span>Блог</span></br> о домашних любимцах</h2>
+                <p>Если у вас дома есть пернатые, хвостатые, пушистые, пятнистые, 
+                  серые, рыжие, черные - белые, четырехлапые, и другие - 
+                  делитесь с нами и другими пользователями системы информацией
+                  о любимцах!
+                </p>
               </div>
             </div>
           </div>

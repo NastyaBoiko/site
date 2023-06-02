@@ -2,6 +2,8 @@
 $fileName = basename(__FILE__, '.php');
 require_once "lib/$fileName" . "init.php";
 // var_dump($post->picture_name);
+// var_dump($defaultUserProfile); die;
+
 ?>
 
 <!DOCTYPE html>
@@ -36,11 +38,12 @@ require_once "lib/$fileName" . "init.php";
 									
 									<li class="comment">
 										<!-- avatar -->
-										<?php if (!empty($parentComment->authorAvatar)):?>
+										<?php 
+										$avatar = $parentComment->authorAvatar ?? $defaultUserProfile;
+										?>
 											<div class="vcard bio">
-												<img src="<?=$parentComment->authorAvatar?>" alt="avatar">
+												<img src="<?=$avatar?>" alt="avatar">
 											</div>
-										<?php endif;?>
 										
 										<div class="comment-body">
 											<div class="d-flex justify-content-between">

@@ -16,3 +16,5 @@ $sql = [
     'password' => 'root',
     'database' => 'site'
 ];
+
+$defaultUserProfile = 'images/default_user_profile.jpg';

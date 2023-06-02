@@ -13,6 +13,7 @@ class Post extends Data
     public $numComments;
 
     public $authorLogin;
+    public $authorAvatar;
 
     public $validTitle;
     public $validContent;

@@ -22,7 +22,7 @@ require_once "lib/$fileName" . "init.php";
 		?>
 
 		<div id="colorlib-main">
-			<section class="contact-section px-md-2  pt-5">
+			<section class="contact-section px-md-5  pt-5">
 				<div class="container">
 					<div class="row d-flex contact-info">
 						<div class="col-md-12 mb-1">

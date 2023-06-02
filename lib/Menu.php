@@ -4,11 +4,13 @@ class Menu
     public $mas;
     public $response;
     public $user;
+    public $defaultUserProfile;
 
-    public function __construct($mas, $response, $user) {
+    public function __construct($mas, $response, $user, $defaultUserProfile) {
         $this->mas = $mas;
         $this->response = $response;
         $this->user = $user;
+        $this->defaultUserProfile = $defaultUserProfile;
     }
     
     public function nav($pageName) { 
@@ -16,11 +18,12 @@ class Menu
         $res .= '<aside id="colorlib-aside" role="complementary" class="js-fullheight"><nav id="colorlib-main-menu" role="navigation"><ul>';
 		
         //Выведение аватарки
-        if (!empty($this->user->avatar) && empty($this->user->is_block)) {
+        if (!$this->user->isGuest && empty($this->user->is_block)) {
+            
+            $avatar = $this->user->avatar ?? $this->defaultUserProfile;
 
-            $res .= '<img src="' . $this->user->avatar . '" class="img-fluid rounded-circle" width="100" height="100"> <br><br>';
-            // $res .= '<div style="width: 100px; height: 100px; border-radius: 50%; background: url(' . $this->user->avatar . ') no-repeat -70px 0;"> </div> <br>';
-        }
+            $res .= '<img src="' . $avatar . '" class="img-fluid rounded-circle" width="100" height="100"> <br><br>';
+        } 
 
             foreach($this->mas as $key => $val) {
 

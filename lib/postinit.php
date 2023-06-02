@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
     // echo "<pre>";
     // var_dump($comment);
     $post->authorLogin = $user->mysql->querySelect("SELECT login FROM user where `id`='$post->id_user'")[0]['login'];
+    $post->authorAvatar = $user->mysql->querySelect("SELECT avatar FROM user where `id`='$post->id_user'")[0]['avatar'];
     // var_dump($post);
 } else {
     header("Location: " . $response->getLink('index.php', []));
