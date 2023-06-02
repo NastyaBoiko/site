@@ -84,7 +84,7 @@ require_once "lib/$fileName" . "init.php";
 											</tr>
 											<?php $numberUser++;
 											endforeach; ?>
-
+<!-- erhvguy -->
 										</tbody>
 									</table>
 								</div>
